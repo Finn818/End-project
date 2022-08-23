@@ -9,7 +9,10 @@
   "author": "Joshua",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.7.8"
   }
 }
