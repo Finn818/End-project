@@ -5,7 +5,6 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const con = require("./config/dbconn");
 const nodemailer = require('nodemailer');
 
 const router = require("./routes/userRoutes");

@@ -1,10 +1,10 @@
 require('dotenv').config();
-const { createConnection } = require('mysql');
+const { createPool } = require('mysql');
 // Create connection variable
-let con;
+let conn;
 // Problem solved
 (function handleConnection() {
-    con = createConnection ({
+    conn = createPool ({
         host: process.env.host,
         user: process.env.dbUser,
         password: process.env.dbPassword,
@@ -13,16 +13,21 @@ let con;
         multipleStatements: true
     });
     
-    con.connect( (err)=> {
-        if(err) throw err 
-    });
+    // conn.connect( (err)=> {
+    //     try{
+    //         if(err) throw err 
+    //     }catch(e){
+    //         console.log(e.message);
+    //     }
+    // });
     
-    con.on('error', (err)=> {
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            handleConnection();
-        }else {
-            throw err;
-        }
-    })    
+    // conn.on('error', (err)=> {
+    //     if((err.code === 'PROTOCOL_CONNECTION_LOST') ||
+    //     (err.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR')){
+    //         handleConnection();
+    //     }else {
+    //         throw err;
+    //     }
+    // })    
 })();
-module.exports = con;
+module.exports = conn;
