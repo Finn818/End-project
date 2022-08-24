@@ -1,15 +1,13 @@
 require('dotenv').config();
 const { createPool } = require('mysql');
 // Create connection variable
-let conn;
-// Problem solved
-(function handleConnection() {
-    conn = createPool ({
+let conn = createPool ({
         host: process.env.host,
         user: process.env.dbUser,
         password: process.env.dbPassword,
         port: process.env.dbPort,
         database: process.env.database,
+        connectionLimit: 10,
         multipleStatements: true
     });
     
@@ -29,5 +27,4 @@ let conn;
     //         throw err;
     //     }
     // })    
-})();
 module.exports = conn;
