@@ -2,9 +2,9 @@ require('dotenv').config();
 function errorHandling(err, req, res, next) {
     
     // Check if the connection was lost.
-    if(localStorage.getItem('dbConnection').length > 0){
+    if(localStorage.getItem('dbConn').length > 0){
         res.json({
-        msg: localStorage.getItem('dbConnection')
+        msg: localStorage.getItem('dbConn')
     })
     }
     if(err){

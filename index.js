@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
     res.json({ msg: "Welcome" });
 });
 
-app.use("/users", userRoute);
+app.use("/Users", userRoute);
 
 app.listen(app.get("port"), () => {
     console.log(`Listening for calls on port ${app.get("port")}`);
@@ -30,10 +30,11 @@ app.get('/', (req, res) => {
     res.send("We Stright")
 });
 
+// ============================================
 // Products functionalities
 app.get('/products', (req, res)=> {
     const strQry = `
-    SELECT id, Img_URL, prodName, prodDesc, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc 
+    SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc 
     FROM products;
     `
     db.query(strQry, (err, results)=> {
@@ -46,7 +47,7 @@ app.get('/products', (req, res)=> {
 
 app.get('/products/:id', (req, res)=> {
     const strQry = `
-    SELECT id, Img_URL, prodName, prodDesc, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
+    SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
     FROM products
     WHERE id = ?;
     `

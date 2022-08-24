@@ -1,14 +1,14 @@
-app.post('/users',bodyParser.json(),(req, res)=> {
-    let {email, password} = req.body; 
-        // If the userRole is null or empty, set it to "user".
+app.post('/Users',bodyParser.json(),(req, res)=> {
+    let {userName, userPassword} = req.body; 
+        // If the userPassword is null or empty, set it to "user".
         if(userPassword.length === 0) {
             userPassword = "user";
         }
         // Check if a user already exists
         let strQry =
-        `SELECT email, password
-        FROM users
-        WHERE LOWER(email) = LOWER('${email}')`;
+        `SELECT userName, userPassword
+        FROM Users
+        WHERE LOWER(userName) = LOWER('${userName}')`;
         db.query(strQry, 
         async (err, results)=> {
         if(err){
@@ -19,13 +19,13 @@ app.post('/users',bodyParser.json(),(req, res)=> {
             }else {    
             // Encrypting a password
             // Default value of salt is 10. 
-            password = await hash(password, 10);
+            password = await hash(userPassword, 10);
             // Query
             strQry = 
-                `INSERT INTO users(userName, userEmail, userPassword)
+                `INSERT INTO Users(userName, userPassword)
                 VALUES(?, ?, ?);`;
                 db.query(strQry, 
-                [email, password],
+                [userName, userPassword],
                 (err, results)=> {
                     if(err){
                         throw err;
@@ -41,9 +41,9 @@ app.post('/users',bodyParser.json(),(req, res)=> {
 //Get all the users by the ID
 app.get('/users/:user_id', (req, res)=> {
     const strQry =
-    `SELECT id, userName, userEmail, userPassword
-    FROM users
-    WHERE user_id = ?;
+    `SELECT id, userName, userPassword
+    FROM Users
+    WHERE Users_id = ?;
     `;
     db.query(strQry, [req.params.user_id], (err, results) => {
         if(err) throw err;
@@ -59,7 +59,7 @@ app.get('/users/:user_id', (req, res)=> {
   //Get all the users
 app.get("/", bodyParser.json(), (req, res) => {
     try {
-      con.query("SELECT * FROM users", (err, result) => {
+      con.query("SELECT * FROM Users", (err, result) => {
         if (err) throw err;
         res.send(result);
       });
@@ -70,7 +70,7 @@ app.get("/", bodyParser.json(), (req, res) => {
   });
 
   // Update users
-app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
+app.put("/Users/:id", middleware, bodyParser.json(), (req, res) => {
     const { userName, userEmail, userPassword } = req.body;
   
     const user = {
@@ -79,7 +79,7 @@ app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
       userPassword
     };
     // Query
-    const strQry = `UPDATE users
+    const strQry = `UPDATE Users
        SET ?
        WHERE id = ${req.params.id}`;
     db.query(strQry, user, (err, data) => {
@@ -91,11 +91,11 @@ app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
   });
   
   // Delete users
-  app.delete("/users/:id", middleware, (req, res) => {
+  app.delete("/Users/:id", middleware, (req, res) => {
     if (req.user.usertype === "Admin") {
       // Query
       const strQry = `
-        DELETE FROM users 
+        DELETE FROM Users 
         WHERE id = ?;
         `;
       db.query(strQry, [req.params.id], (err, data, fields) => {
