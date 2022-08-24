@@ -62,7 +62,7 @@ router.get('/users/:user_id', (req, res)=> {
   });
 
   //Get all the users
-router.get("/users", bodyParser.json(), (req, res) => {
+router.get("/", bodyParser.json(), (req, res) => {
     try {
       con.query("SELECT * FROM Users", (err, result) => {
         if (err) throw err;
