@@ -29,3 +29,31 @@ app.listen(app.get("port"), () => {
 app.get('/', (req, res) => {
     res.send("We Stright")
 });
+
+// Products functionalities
+app.get('/products', (req, res)=> {
+    const strQry = `
+    SELECT id, Img_URL, prodName, prodDesc, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc 
+    FROM products;
+    `
+    db.query(strQry, (err, results)=> {
+        if(err) throw err;
+        res.status(200).json({
+            results: results
+        })
+    })
+});
+
+app.get('/products/:id', (req, res)=> {
+    const strQry = `
+    SELECT id, Img_URL, prodName, prodDesc, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
+    FROM products
+    WHERE id = ?;
+    `
+    db.query(strQry, [req.params.id], (err, results)=> {
+        if(err) throw err;
+        res.status(200).json({
+            results: results
+        })
+    })
+});
