@@ -19,7 +19,7 @@ express.urlencoded( {
 } ));
 
 app.get("/", (req, res) => {
-    res.json({ msg: "Welcome" });
+    res.status(200).json({ msg: "Welcome" });
 });
 app.use("/users", router);
 app.listen(app.get("port"), () => {
