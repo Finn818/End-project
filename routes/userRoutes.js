@@ -64,7 +64,7 @@ router.get('/users/:user_id', (req, res)=> {
   //Get all the users
 router.get("/", bodyParser.json(), (req, res) => {
     try {
-      con.query("SELECT * FROM Users;", (err, result) => {
+      db.query("SELECT * FROM Users;", (err, result) => {
         if (err) throw err;
         res.status(200).json({
           results: result
