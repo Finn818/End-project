@@ -4,7 +4,7 @@ const { createConnection } = require('mysql');
 let con;
 // Problem solved
 (function handleConnection() {
-    con = createCon({
+    con = createConnection ({
         host: process.env.host,
         user: process.env.dbUser,
         password: process.env.dbPassword,

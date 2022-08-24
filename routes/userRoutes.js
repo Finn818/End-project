@@ -1,4 +1,9 @@
-app.post('/users',bodyParser.json(),(req, res)=> {
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('../config/dbconn');
+const app = express();
+const router = express.Router();
+router.post('/users',bodyParser.json(),(req, res)=> {
     let {userName, userPassword} = req.body; 
         // If the userPassword is null or empty, set it to "user".
         if(userPassword.length === 0) {
@@ -39,7 +44,7 @@ app.post('/users',bodyParser.json(),(req, res)=> {
 })
 
 //Get all the users by the ID
-app.get('/users/:user_id', (req, res)=> {
+router.get('/users/:user_id', (req, res)=> {
     const strQry =
     `SELECT id, userName, userPassword
     FROM Users
@@ -57,7 +62,7 @@ app.get('/users/:user_id', (req, res)=> {
   });
 
   //Get all the users
-app.get("/users", bodyParser.json(), (req, res) => {
+router.get("/users", bodyParser.json(), (req, res) => {
     try {
       con.query("SELECT * FROM Users", (err, result) => {
         if (err) throw err;
@@ -70,7 +75,7 @@ app.get("/users", bodyParser.json(), (req, res) => {
   });
 
   // Update users
-app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
+router.put("/users/:id", bodyParser.json(), (req, res) => {
     const { userName, userEmail, userPassword } = req.body;
   
     const user = {
@@ -91,7 +96,7 @@ app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
   });
   
   // Delete users
-  app.delete("/users/:id", middleware, (req, res) => {
+  router.delete("/users/:id", (req, res) => {
     if (req.user.usertype === "Admin") {
       // Query
       const strQry = `
@@ -110,3 +115,4 @@ app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
       });
     }
   });
+  module.exports = router;
