@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const con = require("./config/dbconn");
 const nodemailer = require('nodemailer');
 
-const userRoute = require("./routes/userRoute");
+const userRoute = require("./routes/userRoutes");
 
 const app = express();
 app.set("port", process.env.PORT || 6969);
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
     res.json({ msg: "Welcome" });
 });
 
-app.use("/Users", userRoute);
+app.use("/users", userRoute);
 
 app.listen(app.get("port"), () => {
     console.log(`Listening for calls on port ${app.get("port")}`);

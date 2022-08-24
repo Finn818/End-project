@@ -1,4 +1,4 @@
-app.post('/Users',bodyParser.json(),(req, res)=> {
+app.post('/users',bodyParser.json(),(req, res)=> {
     let {userName, userPassword} = req.body; 
         // If the userPassword is null or empty, set it to "user".
         if(userPassword.length === 0) {
@@ -57,7 +57,7 @@ app.get('/users/:user_id', (req, res)=> {
   });
 
   //Get all the users
-app.get("/", bodyParser.json(), (req, res) => {
+app.get("/users", bodyParser.json(), (req, res) => {
     try {
       con.query("SELECT * FROM Users", (err, result) => {
         if (err) throw err;
@@ -70,7 +70,7 @@ app.get("/", bodyParser.json(), (req, res) => {
   });
 
   // Update users
-app.put("/Users/:id", middleware, bodyParser.json(), (req, res) => {
+app.put("/users/:id", middleware, bodyParser.json(), (req, res) => {
     const { userName, userEmail, userPassword } = req.body;
   
     const user = {
@@ -91,7 +91,7 @@ app.put("/Users/:id", middleware, bodyParser.json(), (req, res) => {
   });
   
   // Delete users
-  app.delete("/Users/:id", middleware, (req, res) => {
+  app.delete("/users/:id", middleware, (req, res) => {
     if (req.user.usertype === "Admin") {
       // Query
       const strQry = `
