@@ -31,29 +31,69 @@ app.listen(app.get("port"), () => {
 
 // ============================================
 // Products functionalities
-app.get('/products', (req, res)=> {
-    const strQry = `
-    SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc 
-    FROM products;
-    `
-    db.query(strQry, (err, results)=> {
-        if(err) throw err;
-        res.status(200).json({
-            results: results
-        })
-    })
-});
+// app.get('/products', (req, res)=> {
+//     const strQry = `
+//     SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc 
+//     FROM products;
+//     `
+//     db.query(strQry, (err, results)=> {
+//         if(err) throw err;
+//         res.status(200).json({
+//             results: results
+//         })
+//     })
+// });
 
-app.get('/products/:id', (req, res)=> {
-    const strQry = `
-    SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
-    FROM products
-    WHERE id = ?,?,?,?,?,?,?;
-    `
-    db.query(strQry, [req.params.id], (err, results)=> {
-        if(err) throw err;
-        res.status(200).json({
-            results: results
-        })
+// app.get('/products/:id', (req, res)=> {
+//     const strQry = `
+//     SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
+//     FROM products
+//     WHERE id = ?,?,?,?,?,?,?;
+//     `
+//     db.query(strQry, [req.params.id], (err, results)=> {
+//         if(err) throw err;
+//         res.status(200).json({
+//             results: results
+//         })
+//     })
+// });
+
+//  SHOW ALL PRODUCTS
+router.get('/products',(req,res) => {
+    let products = `SELECT * FROM Products`
+    con.query(products,(err,results) => {
+        if(err){
+            console.log(err)
+            res.redirect('/error')
+        }else{
+            res.json({
+                status: 200,
+                products : results
+            })
+        }
     })
-});
+})
+// SHOW SINGLE PRODUCT
+router.get('/products/:id',(req,res) => {
+    let products = `SELECT * FROM Products WHERE ID = ${req.params.id};`;
+    con.query(products,(err,results) => {
+        if(err){
+            console.log(err)
+            res.redirect('/error')
+        }else{
+            res.json({
+                status: 200,
+                product : results
+            })
+        }
+    })
+})
+React
+Reply
+
+
+
+
+
+
+
