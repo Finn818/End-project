@@ -38,11 +38,11 @@ router.get('/products/:id',(req,res) => {
 
 app.post("/", bodyParser.json(), (req, res) => {
     const {
-      Id,
-      Img_URL, 
-      prodName, 
-      prodPrice, 
-      prodArrival_Date,
+    Id,
+    Img_URL, 
+    prodName, 
+    prodPrice, 
+    prodArrival_Date,
     Stock_Available, 
     prodDesc
     } = req.body;
