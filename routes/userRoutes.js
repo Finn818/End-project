@@ -46,7 +46,7 @@ router.post('/users',bodyParser.json(),(req, res)=> {
 //Get all the users by the ID
 router.get('/users/:user_id', (req, res)=> {
     const strQry =
-    `SELECT id, userName, userPassword
+    `SELECT id, userName, userEmail, userPassword
     FROM Users
     WHERE Users_id = ?;
     `;
