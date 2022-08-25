@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('../config/dbconn');
 const app = express();
 const router = express.Router();
+
 router.post('/users',bodyParser.json(),(req, res)=> {
     let {userName, userPassword} = req.body; 
         // If the userPassword is null or empty, set it to "user".
