@@ -36,4 +36,34 @@ router.get('/products/:id',(req,res) => {
     })
 });
 
+app.post("/", bodyParser.json(), (req, res) => {
+    const {
+      Id,
+      Img_URL, 
+      prodName, 
+      prodPrice, 
+      prodArrival_Date,
+    Stock_Available, 
+    prodDesc
+    } = req.body;
+    try {
+        db.query(
+        `INSERT INTO users (Id,Img_URL,
+        prodName,
+        prodPrice,
+        prodArrival_Date,
+        Stock_Available, 
+        prodDesc
+        ) VALUES ("${Id}", "${Img_URL}", "${prodName}", "${prodPrice}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
+        (err, result) => {
+          if (err) throw err;
+          res.send(result);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+      res.status(400).send(error);
+    }
+  });
+
 module.exports = router;
