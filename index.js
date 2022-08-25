@@ -47,7 +47,7 @@ app.get('/products/:id', (req, res)=> {
     const strQry = `
     SELECT id, Img_URL, prodName, prodPrice, prodSize, prodArrival_Date, Stock_Available, prodDesc
     FROM products
-    WHERE id = ?;
+    WHERE id = ?,?,?,?,?,?,?;
     `
     db.query(strQry, [req.params.id], (err, results)=> {
         if(err) throw err;

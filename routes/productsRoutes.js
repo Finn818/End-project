@@ -18,17 +18,6 @@ const router = express.Router();
 //         })
 //     })
 // });
-app.get("/products", bodyParser.json(), (req, res) => {
-    try {
-      db.query("SELECT * FROM products;", (err, result) => {
-        if (err) throw err;
-        res.status(200).json({
-          results: result
-        });
-      });
-    } catch (error) {
-      res.status(400).send(error.message);
-    }
-  });
+
 
   module.exports = router;
