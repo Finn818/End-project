@@ -58,3 +58,17 @@ app.listen(app.get("port"), () => {
 //     })
 // });
 
+router.get('/products',(req,res) => {
+    let products = `SELECT * FROM products`
+    conn.query(products,(err,results) => {
+        if(err){
+            console.log(err)
+            res.redirect('/error')
+        }else{
+            res.json({
+                status: 200,
+                products : results
+            })
+        }
+    })
+})
