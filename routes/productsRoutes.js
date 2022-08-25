@@ -35,10 +35,21 @@ router.get('/products/:id',(req,res) => {
         }
     })
 });
-
-app.post("/", bodyParser.json(), (req, res) => {
+router.put('/products/:id',(req,res) => {
+    let products = `UPDATE products SET ? WHERE id = ?;`;
+    db.query(products, [req.body, req.params.id], (err,results) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.json({
+                status: 200,
+                product : results
+            })
+        }
+    })
+});
+router.post("/products", bodyParser.json(), (req, res) => {
     const {
-    Id,
     Img_URL, 
     prodName, 
     prodPrice, 
@@ -48,20 +59,19 @@ app.post("/", bodyParser.json(), (req, res) => {
     } = req.body;
     try {
         db.query(
-        `INSERT INTO users (Id,Img_URL,
+        `INSERT INTO products (Img_URL,
         prodName,
         prodPrice,
         prodArrival_Date,
         Stock_Available, 
         prodDesc
-        ) VALUES ("${Id}", "${Img_URL}", "${prodName}", "${prodPrice}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
+        ) VALUES ("${Img_URL}", "${prodName}", "${prodPrice}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
         (err, result) => {
           if (err) throw err;
-          res.send(result);
+          res.status(200).send(result);
         }
       );
     } catch (error) {
-      console.log(error);
       res.status(400).send(error);
     }
   });
