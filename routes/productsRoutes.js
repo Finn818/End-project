@@ -18,7 +18,7 @@ const router = express.Router();
 //         })
 //     })
 // });
-router.get("/products", bodyParser.json(), (req, res) => {
+app.get("/products", bodyParser.json(), (req, res) => {
     try {
       db.query("SELECT * FROM products;", (err, result) => {
         if (err) throw err;
