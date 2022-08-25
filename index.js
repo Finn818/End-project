@@ -9,7 +9,7 @@ const nodemailer = require('nodemailer');
 
 const userRouter = require("./routes/userRoutes");
 const productsRouter = require("./routes/productsRoutes");
-const productDetailsRouter = require("./routes/productdetailsRoutes");
+const productDetailsRouter = require("./routes/productDetailsRoutes");
 
 const app = express();
 app.set("port", process.env.PORT || 6969);
