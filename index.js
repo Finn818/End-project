@@ -60,7 +60,7 @@ app.listen(app.get("port"), () => {
 
 //  SHOW ALL PRODUCTS
 router.get('/products',(req,res) => {
-    let products = `SELECT * FROM Products`
+    let products = `SELECT * FROM products`
     con.query(products,(err,results) => {
         if(err){
             console.log(err)
@@ -75,7 +75,7 @@ router.get('/products',(req,res) => {
 })
 // SHOW SINGLE PRODUCT
 router.get('/products/:id',(req,res) => {
-    let products = `SELECT * FROM Products WHERE ID = ${req.params.id};`;
+    let products = `SELECT * FROM products WHERE ID = ${req.params.id};`;
     con.query(products,(err,results) => {
         if(err){
             console.log(err)
@@ -88,8 +88,6 @@ router.get('/products/:id',(req,res) => {
         }
     })
 })
-React
-Reply
 
 
 
