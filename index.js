@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
 const userRouter = require("./routes/userRoutes");
-const productsRouter = require("./routes/userRoutes");
+const productsRouter = require("./routes/productsRoutes");
 
 const app = express();
 app.set("port", process.env.PORT || 6969);
