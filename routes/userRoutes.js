@@ -29,7 +29,7 @@ router.post('/users',bodyParser.json(),(req, res)=> {
             // Query
             strQry = 
                 `INSERT INTO Users(userName, userPassword)
-                VALUES(?, ?, ?);`;
+                VALUES(?, ?);`;
                 db.query(strQry, 
                 [userName, userPassword],
                 (err, results)=> {
