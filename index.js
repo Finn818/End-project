@@ -98,7 +98,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     });
   });
  
-  app.get("/", bodyParser.json, (req, res) => {
+  app.get("/", bodyParser.json(), (req, res) => {
     try{
       let sql = "SELECT * FROM Users";
       db.query(sql, (err, result) => {
@@ -179,7 +179,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     }
   })
   // Rest Password Route
-  app.put('/users/:id', middleware1,bodyParser.json(), (req, res) => {
+  app.put('/users/:id',bodyParser.json(), (req, res) => {
     let sql = "SELECT * FROM Users WHERE ?";
     let user = {
       user_id: req.params.id,
