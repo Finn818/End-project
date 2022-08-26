@@ -98,7 +98,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     });
   });
  
-  app.get("/", middleware1, (req, res) => {
+  app.get("/", bodyParser.json, (req, res) => {
     try{
       let sql = "SELECT * FROM Users";
       db.query(sql, (err, result) => {
