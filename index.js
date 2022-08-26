@@ -33,7 +33,7 @@ app.listen(app.get("port"), () => {
 
 // ================================
 //Login
-router.post("/login", bodyParser.json(),(req, res) => {
+app.post("/login", bodyParser.json(),(req, res) => {
     try {
       let sql = "SELECT * FROM Users WHERE ?";
       let user = {
