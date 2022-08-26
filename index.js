@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const {errorHandling} = require('./middleware/ErrorHandling');
 const nodemailer = require('nodemailer');
 
 const userRouter = require("./routes/userRoutes");
@@ -218,3 +219,6 @@ devServer: {
     Proxy: '*'
 }
 }
+
+// Taking care of all errors
+app.use(errorHandling);
