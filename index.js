@@ -84,7 +84,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     }
   });
   //Verify
-  router.get("/users", bodyParser.json(), (req, res) => {
+  app.get("/users", bodyParser.json(), (req, res) => {
     const token = req.header("x-auth-token");
     jwt.verify(token, process.env.jwtSecret, (err, decodedToken) => {
       if (err) {
