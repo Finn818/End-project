@@ -98,7 +98,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     });
   });
  
-  router.get("/", middleware1, (req, res) => {
+  app.get("/", middleware1, (req, res) => {
     try{
       let sql = "SELECT * FROM Users";
       db.query(sql, (err, result) => {
@@ -111,7 +111,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
   });
   // Importing the dependencies
  
-  router.post('/forgot-psw', (req, res) => {
+  app.post('/forgot-psw', (req, res) => {
       try {
       let sql = "SELECT * FROM Users WHERE ?";
       let user = {
@@ -179,7 +179,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     }
   })
   // Rest Password Route
-  router.put('/users/:id', middleware1,bodyParser.json(), (req, res) => {
+  app.put('/users/:id', middleware1,bodyParser.json(), (req, res) => {
     let sql = "SELECT * FROM Users WHERE ?";
     let user = {
       user_id: req.params.id,
