@@ -7,7 +7,7 @@ const router = express.Router();
 // Products functionalities
 // SHOW ALL PRODUCTS
 router.get('/',(req,res) => {
-    let products = `SELECT prodName, prodPrice FROM products`
+    let products = `SELECT * FROM products`
     db.query(products,(err,results) => {
         if(err){
             console.log(err)
