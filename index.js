@@ -211,14 +211,3 @@ app.post("/login", bodyParser.json(),(req, res) => {
       }
     });
   })
-
-
-// This one goes to the bottom of your index.js
-module.exports = {
-devServer: {
-    Proxy: '*'
-}
-}
-
-// Taking care of all errors
-app.use(errorHandling);
