@@ -212,14 +212,3 @@ app.post("/login", bodyParser.json(),(req, res) => {
     });
   })
 // ==========================================
-// Update Product to Database
-export const updateProductById = (data, id, result) => {
-  db.query("UPDATE products SET products_prodName = ?, products_prodPrice = ? WHERE products_id = ?", [data.products_prodName, data.products_prodPrice, id], (err, results) => {             
-      if(err) {
-          console.log(err);
-          result(err, null);
-      } else {
-          result(null, results);
-      }
-  });   
-}
