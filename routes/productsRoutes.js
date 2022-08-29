@@ -22,7 +22,7 @@ router.get('/',(req,res) => {
 })
 // SHOW SINGLE PRODUCT
 router.get('/products/:id',(req,res) => {
-    let products = `SELECT * FROM products WHERE ID = ${req.params.id};`;
+    let products = `SELECT * FROM products WHERE ID = ${res.params.id};`;
     db.query(products,(err,results) => {
         if(err){
             console.log(err)
