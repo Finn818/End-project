@@ -5,8 +5,8 @@ const app = express();
 const router = express.Router();
 
 router.get('/',(req,res) => {
-    let products = `SELECT * FROM productDetails`
-    db.query(products,(err,results) => {
+    let productDetails = `SELECT * FROM productDetails`
+    db.query(productDetails,(err,results) => {
         if(err){
             console.log(err)
             res.redirect('/error')
@@ -18,5 +18,21 @@ router.get('/',(req,res) => {
         }
     })
 })
+
+// SHOW SINGLE PRODUCT
+router.get('/productDetails/:id',(req,res) => {
+    let productDetails = `SELECT * FROM productDetails WHERE ID = ${req.params.id};`;
+    db.query(productDetails,(err,results) => {
+        if(err){
+            console.log(err)
+            res.redirect('/error')
+        }else{
+            res.json({
+                status: 200,
+                product : results
+            })
+        }
+    })
+});
 
   module.exports = router;

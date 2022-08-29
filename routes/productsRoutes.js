@@ -35,6 +35,8 @@ router.get('/products/:id',(req,res) => {
         }
     })
 });
+
+//update
 router.put('/products/:id',(req,res) => {
     let products = `UPDATE products SET ? WHERE id = ?;`;
     db.query(products, [req.body, req.params.id], (err,results) => {
