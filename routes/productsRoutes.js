@@ -21,11 +21,10 @@ router.get('/',(req,res) => {
 })
 // SHOW SINGLE PRODUCT
 router.get('/products/:id',(req,res) => {
-    let products = `SELECT * FROM products WHERE id = ${req.params.id};`;
-    db.query(products,(err,results) => {
+    let products = `SELECT * FROM products WHERE id = ?;`;
+    db.query(products, [req.params.id],(err,results) => {
         if(err){
-            console.log(err)
-            res.redirect('/error')
+            res.status(400).json({msg: err});
         }else{
             res.json({
                 status: 200,
