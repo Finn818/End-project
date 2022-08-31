@@ -10,8 +10,7 @@ router.get('/',(req,res) => {
     let products = `SELECT * FROM products`
     db.query(products,(err,results) => {
         if(err){
-            console.log(err)
-            res.redirect('/error')
+            res.status(400).json({msg: err});
         }else{
             res.json({
                 status: 200,
