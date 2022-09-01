@@ -5,14 +5,14 @@ const app = express();
 const router = express.Router();
 
 router.post('/users',bodyParser.json(),(req, res)=> {
-    let {userName, userPassword} = req.body; 
+    let {userName, userEmail, userPassword} = req.body; 
         // If the userPassword is null or empty, set it to "user".
         if(userPassword.length === 0) {
             userPassword = "user";
         }
         // Check if a user already exists
         let strQry =
-        `SELECT userName, userPassword
+        `SELECT userName, userEmail, userPassword
         FROM Users
         WHERE LOWER(userName) = LOWER('${userName}')`;
         db.query(strQry, 
@@ -28,10 +28,10 @@ router.post('/users',bodyParser.json(),(req, res)=> {
             password = await hash(userPassword, 10);
             // Query
             strQry = 
-                `INSERT INTO Users(userName, userPassword)
-                VALUES(?, ?);`;
+                `INSERT INTO Users(userName, userEmail, userPassword)
+                VALUES(?, ?, ?);`;
                 db.query(strQry, 
-                [userName, userPassword],
+                [userName, userEmail, userPassword],
                 (err, results)=> {
                     if(err){
                         throw err;
