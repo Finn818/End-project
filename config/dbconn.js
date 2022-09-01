@@ -11,20 +11,20 @@ let conn = createPool ({
         multipleStatements: true
     });
     
-    // conn.connect( (err)=> {
-    //     try{
-    //         if(err) throw err 
-    //     }catch(e){
-    //         console.log(e.message);
-    //     }
-    // });
+    conn.connect( (err)=> {
+        try{
+            if(err) throw err 
+        }catch(e){
+            console.log(e.message);
+        }
+    });
     
-    // conn.on('error', (err)=> {
-    //     if((err.code === 'PROTOCOL_CONNECTION_LOST') ||
-    //     (err.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR')){
-    //         handleConnection();
-    //     }else {
-    //         throw err;
-    //     }
-    // })    
+    conn.on('error', (err)=> {
+        if((err.code === 'PROTOCOL_CONNECTION_LOST') ||
+        (err.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR')){
+            handleConnection();
+        }else {
+            throw err;
+        }
+    })    
 module.exports = conn;
