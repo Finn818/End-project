@@ -20,18 +20,30 @@ router.get('/',(req,res) => {
     })
 })
 // SHOW SINGLE PRODUCT
-router.get('/products/:id',(req,res) => {
+// router.get('/products/:id',(req,res) => {
+//     let products = `SELECT * FROM products WHERE id = ?;`;
+//     db.query(products, [req.params.id],(err,results) => {
+//         if(err){
+//             res.status(400).json({msg: "no shoes in stock" });
+//         }else{
+//             res.json({
+//                 status: 200,
+//                 products : results
+//             })
+//         }
+//     })
+// });
+
+
+router.get('/products/:id', async (req, res) => {
     let products = `SELECT * FROM products WHERE id = ?;`;
-    db.query(products, [req.params.id],(err,results) => {
-        if(err){
-            res.status(400).json({msg: "no shoes in stock" });
-        }else{
-            res.json({
-                status: 200,
-                products : results
-            })
-        }
-    })
+  const { id } = req.params;
+  const user = await products.findById(id);
+
+  res.json({
+    success: true,
+    products,
+  });
 });
 
 //update
