@@ -4,32 +4,32 @@ const db = require('../config/dbconn');
 const app = express();
 const router = express.Router();
 
-router.get('/productDetails',(req,res) => {
+router.get('/',(req,res) => {
 let productDetails = `SELECT * FROM productDetails`
 db.query(productDetails,(err,results) => {
-    if(err){
+if(err){
     console.log(err)
     res.redirect('/error')
-    }else{
-        res.json({
-        status: 200,
-        products : results
-        })
-        }
+}else{
+    res.json({
+    status: 200,
+    products : results
+    })
+    }
     })
 })
 
 // SHOW SINGLE PRODUCT
 router.get('/productDetails/:id',(req,res) => {
-    let productDetails = `SELECT * FROM productDetails WHERE ID = ${req.params.id};`;
-    db.query(productDetails,(err,results) => {
-        if(err){
-            console.log(err)
-            res.redirect('/error')
-        }else{
-            res.json({
-                status: 200,
-                products : results
+let productDetails = `SELECT * FROM productDetails WHERE ID = ${req.params.id};`;
+db.query(productDetails,(err,results) => {
+if(err){
+    console.log(err)
+    res.redirect('/error')
+}else{
+    res.json({
+    status: 200,
+    products : results
             })
         }
     })
