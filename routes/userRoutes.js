@@ -49,9 +49,9 @@ router.get('/users/:id', (req, res)=> {
     const strQry =
     `SELECT id, userName, userEmail, userPassword
     FROM Users
-    WHERE Users_id = ?;
+    WHERE id = ?;
     `;
-    db.query(strQry, [req.params.user_id], (err, results) => {
+    db.query(strQry, [req.params.id], (err, results) => {
         if(err) throw err;
         res.setHeader('Access-Control-Allow-Origin','*')
         res.json({
