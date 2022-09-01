@@ -10,11 +10,11 @@ router.get('/',(req,res) => {
     let products = `SELECT * FROM products`
     db.query(products,(err,results) => {
         if(err){
-            res.status(400).json({msg: err});
+        res.status(400).json({msg: err});
         }else{
-            res.json({
-                status: 200,
-                products : results
+        res.json({
+        status: 200,
+        products : results
             })
         }
     })
@@ -24,11 +24,11 @@ router.get('/products/:id',(req,res) => {
     let product = `SELECT * FROM products WHERE id = ?;`;
     db.query(product, [req.params.id],(err,results) => {
         if(err){
-            res.status(400).json({msg: "no shoes in stock" });
+        res.status(400).json({msg: "no shoes in stock" });
         }else{
             res.json({
-                status: 200,
-                products : results
+            status: 200,
+            products : results
             })
         }
     })
@@ -42,8 +42,8 @@ router.put('/products/:id',(req,res) => {
             console.log(err);
         }else{
             res.json({
-                status: 200,
-                product : results
+            status: 200,
+            product : results
             })
         }
     })
