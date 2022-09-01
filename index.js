@@ -38,7 +38,7 @@ app.post("/login", bodyParser.json(),(req, res) => {
     try {
       let sql = "SELECT * FROM Users WHERE ?";
       let user = {
-        name: req.body.userName,
+        name: req.body.userName, userEmail, userPassword
       };
       db.query(sql, user, async (err, result) => {
         if (err) throw err;
@@ -57,12 +57,9 @@ app.post("/login", bodyParser.json(),(req, res) => {
           } else {
             const payload = {
               user: {
-                Img_URL: result[0].Img_URL,
-                prodName: result[0].prodName,
-                prodPrice: result[0].prodPrice,
-                prodArrival_Date: result[0].prodArrival_Date,
-                Stock_Available: result[0].Stock_Available,
-                prodDesc: result[0].prodDesc
+                userName, 
+                userEmail, 
+                userPassword
               },
             };
             //Creating a token and setting an expiry date
@@ -192,16 +189,11 @@ app.post("/login", bodyParser.json(),(req, res) => {
       } else {
         let newPassword = `UPDATE Users SET ? WHERE User_id = ${req.params.id}`;
         const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
+        const hash = bcrypt.hashSync(req.body.userPassword, salt);
         const updatedPassword = {
-            Img_URL: result[0].Img_URL,
-            prodName: result[0].prodName,
-            prodPrice: result[0].prodPrice,
-            prodArrival_Date: result[0].prodArrival_Date,
-            Stock_Available: result[0].Stock_Available,
-            prodDesc: result[0].prodDesc,
+          userEmail,
           // Only thing im changing in table
-          password: hash,
+          userPassword: hash,
         };
         db.query(newPassword, updatedPassword, (err, result) => {
           if (err) throw err;
