@@ -34,6 +34,21 @@ router.get('/products/:id',(req,res) => {
     })
 });
 
+// productDetails
+router.get('/productDetails/:id',(req,res) => {
+    let products = `SELECT * FROM productDetails WHERE id = ?;`;
+    db.query(products, [req.params.id],(err,results) => {
+        if(err){
+            res.status(400).json({msg: "no shoes in stock" });
+        }else{
+            res.json({
+                status: 200,
+                products : results
+            })
+        }
+    })
+});
+
 //update
 router.put('/products/:id',(req,res) => {
     let products = `UPDATE products SET ? WHERE id = ?;`;
