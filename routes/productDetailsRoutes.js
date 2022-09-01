@@ -4,7 +4,7 @@ const db = require('../config/dbconn');
 const app = express();
 const router = express.Router();
 
-router.get('/',(req,res) => {
+router.get('/productDetails',(req,res) => {
     let productDetails = `SELECT * FROM productDetails`
     db.query(productDetails,(err,results) => {
         if(err){
