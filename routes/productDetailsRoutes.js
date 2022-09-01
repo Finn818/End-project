@@ -20,7 +20,7 @@ if(err){
 })
 
 // SHOW SINGLE PRODUCT
-router.get('/productDetails/id',(req,res) => {
+router.get('/productDetails/:id',(req,res) => {
 let productDetails = `SELECT * FROM productDetails WHERE id = ${req.params.id};`;
 db.query(productDetails,(err,results) => {
 if(err){
