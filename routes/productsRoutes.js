@@ -21,8 +21,8 @@ router.get('/',(req,res) => {
 })
 // SHOW SINGLE PRODUCT
 router.get('/products/:id',(req,res) => {
-    let products = `SELECT * FROM products WHERE id = ?;`;
-    db.query(products, [req.params.id],(err,results) => {
+    let product = `SELECT * FROM products WHERE id = ?;`;
+    db.query(product, [req.params.id],(err,results) => {
         if(err){
             res.status(400).json({msg: "no shoes in stock" });
         }else{
