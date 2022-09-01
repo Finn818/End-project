@@ -5,16 +5,16 @@ const app = express();
 const router = express.Router();
 
 router.get('/productDetails',(req,res) => {
-    let productDetails = `SELECT * FROM productDetails`
-    db.query(productDetails,(err,results) => {
-        if(err){
-            console.log(err)
-            res.redirect('/error')
-        }else{
-            res.json({
-                status: 200,
-                products : results
-            })
+let productDetails = `SELECT * FROM productDetails`
+db.query(productDetails,(err,results) => {
+    if(err){
+    console.log(err)
+    res.redirect('/error')
+    }else{
+        res.json({
+        status: 200,
+        products : results
+        })
         }
     })
 })
