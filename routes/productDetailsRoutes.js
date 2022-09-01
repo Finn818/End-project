@@ -29,7 +29,7 @@ router.get('/productDetails/:id',(req,res) => {
         }else{
             res.json({
                 status: 200,
-                product : results
+                products : results
             })
         }
     })
