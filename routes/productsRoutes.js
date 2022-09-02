@@ -23,31 +23,27 @@ router.get('/',(req,res) => {
 router.get('/products/:id',(req,res) => {
     let product = `SELECT * FROM products WHERE id = ?;`;
     db.query(product, [req.params.id],(err,results) => {
-        if(err){
-        res.status(400).json({msg: "no shoes in stock" });
-        }else{
-            res.json({
+        if(err) res.status(400).json({msg: "no shoes in stock" })
+        res.json({
             status: 200,
             products : results
             })
-        }
+        })
     })
-});
+
 
 //update
 router.put('/products/:id',(req,res) => {
     let products = `UPDATE products SET ? WHERE id = ?;`;
     db.query(products, [req.body, req.params.id], (err,results) => {
-        if(err){
-            console.log(err);
-        }else{
-            res.json({
+        if(err) res.status(400).json({msg: "no shoes in stock" })
+        res.json({
             status: 200,
             product : results
             })
-        }
+        })
     })
-});
+    
 router.post("/products", bodyParser.json(), (req, res) => {
     const {
     Img_URL, 
