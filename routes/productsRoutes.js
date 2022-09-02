@@ -20,7 +20,7 @@ router.get('/',(req,res) => {
     })
 })
 // SHOW SINGLE PRODUCT
-router.get('/products/:id',(req,res) => {
+router.get('/:id',(req,res) => {
     let product = `SELECT * FROM products WHERE id = ?;`;
     db.query(product, [req.params.id],(err,results) => {
         if(err) res.status(400).json({msg: "no shoes in stock" })
@@ -33,7 +33,7 @@ router.get('/products/:id',(req,res) => {
 
 
 //update
-router.put('/products/:id',(req,res) => {
+router.put('/:id',(req,res) => {
     let products = `UPDATE products SET ? WHERE id = ?;`;
     db.query(products, [req.body, req.params.id], (err,results) => {
         if(err) res.status(400).json({msg: "no shoes in stock" })
@@ -43,8 +43,8 @@ router.put('/products/:id',(req,res) => {
             })
         })
     })
-    
-router.post("/products", bodyParser.json(), (req, res) => {
+
+router.post("/", bodyParser.json(), (req, res) => {
     const {
     Img_URL, 
     prodName, 
