@@ -23,7 +23,7 @@ router.get('/',(req,res) => {
 router.get('/:id',(req,res) => {
     let product = `SELECT * FROM products WHERE id = ?;`;
     db.query(product, [req.params.id],(err,results) => {
-        if(err) res.status(400)({msg: "no shoes in stock" })
+        if(err) res.status(400).json({msg: "no shoes in stock" })
         res.json({
             status: 200,
             products : results
