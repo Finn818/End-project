@@ -4,6 +4,20 @@ const db = require('../config/dbconn');
 const app = express();
 const router = express.Router();
 
+//Get all the users
+router.get("/", bodyParser.json(), (req, res) => {
+  try {
+    db.query("SELECT * FROM Users;", (err, result) => {
+      if (err) throw err;
+      res.status(200).json({
+        results: result
+      });
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 //Get all the users by the ID
 router.get('/:id', (req, res)=> {
     const strQry =
@@ -22,19 +36,6 @@ router.get('/:id', (req, res)=> {
 
   });
 
-  //Get all the users
-router.get("/", bodyParser.json(), (req, res) => {
-    try {
-      db.query("SELECT * FROM Users;", (err, result) => {
-        if (err) throw err;
-        res.status(200).json({
-          results: result
-        });
-      });
-    } catch (error) {
-      res.status(400).send(error.message);
-    }
-  });
 
   // Update users
 router.put("/users/:id", bodyParser.json(), (req, res) => {
