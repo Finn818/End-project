@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../config/dbconn');
+const { hash } = require('bcrypt');
 const app = express();
 const router = express.Router();
 
@@ -119,6 +120,48 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
       });
     }
   });
+
+  //Register
+  router.post('/register',bodyParser.json(),(req, res)=> {
+    let {userName, userEmail, userPassword} = req.body; 
+    console.log( userName, userEmail, userPassword );
+      //   If the userPassword is null or empty, set it to "user".
+        if(userPassword.length === 0) {
+            userPassword = "users";
+        }
+        // Check if a user already exists
+        let strQry =
+        `SELECT userName, userEmail, userPassword
+        FROM Users
+        WHERE LOWER(userName) = LOWER('${userName}')`;
+        db.query(strQry, 
+        async (err, results)=> {
+        if(err){
+        throw err;
+        }else {
+            if(results.length) {
+            res.status(409).json({msg: 'User already exist'});
+            }else {    
+            // Encrypting a password
+            // Default value of salt is 10. 
+            password = await hash(userPassword, 10);
+            // Query
+            strQry = 
+                `INSERT INTO Users(userName, userEmail, userPassword)
+                VALUES(?, ?, ?);`;
+                db.query(strQry, 
+                [userName, userEmail, userPassword],
+                (err, results)=> {
+                    if(err){
+                        throw err;
+                    }else {
+                        res.status(201).json({msg: `number of affected row is: ${results.affectedRows}`});
+                    }
+                })
+            }
+        }
+    });
+})
 
   //Login
 router.post("/login", bodyParser.json(),(req, res) => {
