@@ -60,6 +60,7 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
     });
   });
 
+  // Creating User
   router.post('/users',bodyParser.json(),(req, res)=> {
     let {userName, userEmail, userPassword} = req.body; 
         // If the userPassword is null or empty, set it to "user".
