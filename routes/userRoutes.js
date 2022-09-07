@@ -116,15 +116,6 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
       });
     });
 
-  // conn.connect(function(err) {
-  //   if (err) throw err;
-  //   var sql = "DELETE FROM Users WHERE id = ? ";
-  //   conn.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("Number of records deleted: ");
-  //   });
-  // });
-
   //Register
   router.post('/register',bodyParser.json(),(req, res)=> {
     let {userName, userEmail, userPassword} = req.body; 
