@@ -106,7 +106,7 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
       // Query
       const strQry = `
         DELETE FROM Users 
-        WHERE userName = test;
+        WHERE id = ?;
         `;
       db.query(strQry, [req.params.id], (err) => {
         if (err) throw err;
