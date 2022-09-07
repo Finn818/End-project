@@ -102,26 +102,28 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
 })
   
   // Delete users
-  // router.delete("/users/:id", (req, res) => {
-  //   if (req.user.usertype === "Admin") {
-  //     // Query
-  //     const strQry = `
-  //       DELETE FROM Users 
-  //       WHERE id = ?;
-  //       `;
-  //     db.query(strQry, [req.params.id], (err, data, fields) => {
-  //       if (err) throw err;
-  //       res.json({
-  //         msg: "Item Deleted",
-  //       });
-  //     });
-  //   } else {
-  //     res.json({
-  //       msg: "Only Admins permissions!",
-  //     });
-  //   }
-  // });
+  router.delete("/users/:id", (req, res) => {
+      // Query
+      const strQry = `
+        DELETE FROM Users 
+        WHERE id = ?;
+        `;
+      db.query(strQry, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+          msg: "Item Deleted",
+        });
+      });
+    });
 
+  // conn.connect(function(err) {
+  //   if (err) throw err;
+  //   var sql = "DELETE FROM Users WHERE id = ? ";
+  //   conn.query(sql, function (err, result) {
+  //     if (err) throw err;
+  //     console.log("Number of records deleted: ");
+  //   });
+  // });
 
   //Register
   router.post('/register',bodyParser.json(),(req, res)=> {
