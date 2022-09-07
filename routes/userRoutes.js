@@ -59,27 +59,10 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
       });
     });
   });
-  
-  // Delete users
-  router.delete("/users/:id", (req, res) => {
-      // Query
-      const strQry = `
-        DELETE FROM Users 
-        WHERE id = ?;
-        `;
-      db.query(strQry, [req.params.id], (err) => {
-        if (err) throw err;
-        res.json({
-          msg: "Item Deleted",
-        });
-      });
-    });
 
-  //Register
-  router.post('/register',bodyParser.json(),(req, res)=> {
+  router.post('/users',bodyParser.json(),(req, res)=> {
     let {userName, userEmail, userPassword} = req.body; 
-    console.log( userName, userEmail, userPassword );
-      //   If the userPassword is null or empty, set it to "user".
+        // If the userPassword is null or empty, set it to "user".
         if(userPassword.length === 0) {
             userPassword = "users";
         }
@@ -91,7 +74,7 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
         db.query(strQry, 
         async (err, results)=> {
         if(err){
-        throw err;
+        throw err
         }else {
             if(results.length) {
             res.status(409).json({msg: 'User already exist'});
@@ -116,6 +99,22 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
         }
     });
 })
+  
+  // Delete users
+  router.delete("/users/:id", (req, res) => {
+      // Query
+      const strQry = `
+        DELETE FROM Users 
+        WHERE id = ?;
+        `;
+      db.query(strQry, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+          msg: "Item Deleted",
+        });
+      });
+    });
+
 
   //Login
 router.post("/login", bodyParser.json(),(req, res) => {
