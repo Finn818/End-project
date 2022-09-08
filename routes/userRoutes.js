@@ -4,6 +4,7 @@ const db = require('../config/dbconn');
 const { hash } = require('bcrypt');
 const app = express();
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 //Get all the users
 router.get("/", bodyParser.json(), (req, res) => {
@@ -35,7 +36,7 @@ router.get('/:id', (req, res)=> {
         })
     })
 
-  });
+});
 
 
   // Update users
@@ -121,13 +122,10 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
   //Login
 router.post("/login", bodyParser.json(),(req, res) => {
   try {
-    let sql = "SELECT * FROM Users WHERE email = ?";
-    let user = {
-      name: req.body.userName, 
-      email: req.body.userEmail, 
-      password: req.body.userPassword
-    };
-    db.query(sql, [user.email], async (err, result) => {
+    let {userName, userEmail, userPassword} = req.body;
+    console.log(userEmail);
+    let sql = `SELECT * FROM Users WHERE userEmail = ${userEmail}`;
+    db.query(sql, async (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
         res.send("Name not found please register");
@@ -135,34 +133,41 @@ router.post("/login", bodyParser.json(),(req, res) => {
         //Decryption
         //Accepts the password stored in the db and the password given by the user(req.body)
         const isMatch = await bcrypt.compare(
-          user.password,
+          userPassword,
           result[0].userPassword
         );
+      
         //If the password does not match
         if (!isMatch) {
           res.send("Password is Incorrect");
-        } else {
+        }else{
+
           const payload = {
-            user: user
-            },
-          };
-          //Creating a token and setting an expiry date
-          jwt.sign(
-            payload,
-            process.env.jwtSecret,
-            {
-              expiresIn: "365d",
-            },
-            (err, token) => {
-              if (err) throw err;
-              res.json({ token });
+            userEmail, 
+            userPassword
             }
-          );
+            //Creating a token and setting an expiry date
+    
+           try { 
+              jwt.sign(
+               payload,
+               process.env.jwtSecret,
+               {
+                 expiresIn: "365d",
+               },
+               (err, token) => {
+                 if (err) throw err;
+                 res.status(200).json({ token });
+               });
+            }  catch (error) {
+              res.status(400).send(error.message);
+            }
         }
+          
       }
     });
-  } catch (error) {
-    console.log(error);
+  }catch(e) {
+    res.status(400).json({err: e.message})
   }
 });
 
