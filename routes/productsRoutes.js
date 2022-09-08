@@ -62,20 +62,24 @@ router.post("/", bodyParser.json(), (req, res) => {
     const {
     Img_URL, 
     prodName, 
-    prodPrice, 
+    prodPrice,
+    prodSize,
+    prodColor, 
     prodArrival_Date,
     Stock_Available, 
     prodDesc
     } = req.body;
     try {
         db.query(
-        `INSERT INTO products (Img_URL,
+        `INSERT INTO FullProductDetails (Img_URL,
         prodName,
         prodPrice,
+        prodSize,
+        prodColor,
         prodArrival_Date,
         Stock_Available, 
         prodDesc
-        ) VALUES ("${Img_URL}", "${prodName}", "${prodPrice}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
+        ) VALUES ("${Img_URL}", "${prodName}", "${prodPrice}", "${prodSize}", "${prodColor}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
         (err, result) => {
           if (err) throw err;
           res.status(200).send(result);
