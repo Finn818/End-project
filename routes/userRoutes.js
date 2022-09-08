@@ -78,14 +78,14 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
     });
 
   //Register
-  router.post('/register',bodyParser.json(),(req, res)=> {
+  router.post('/register',bodyParser.json(), (req, res)=> {
     let {userName, userEmail, userPassword} = req.body; 
     console.log( userName, userEmail, userPassword );
       //   If the userPassword is null or empty, set it to "user".
-        if(userPassword === null || userPassword === undefined) {
-            userPassword = "users";
-        }
-        // Check if a user already exists
+       
+        // userPassword = hashSync(userPassword);
+    
+        // // Check if a user already exists
         let strQry =
         `SELECT userName, userEmail, userPassword
         FROM Users
@@ -100,13 +100,13 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
             }else {    
             // Encrypting a password
             // Default value of salt is 10. 
-            password = await hash(userPassword, 10);
+            let password = await hash(userPassword, 10);
             // Query
             strQry = 
                 `INSERT INTO Users(userName, userEmail, userPassword)
                 VALUES(?, ?, ?);`;
                 db.query(strQry, 
-                [userName, userEmail, userPassword],
+                [userName, userEmail, password],
                 (err, results)=> {
                     if(err){
                         throw err;
@@ -151,13 +151,13 @@ router.post("/login", bodyParser.json(),(req, res) => {
            try { 
               jwt.sign(
                payload,
-               process.env.jwtSecret,
+               process.env.SECRETKEY,
                {
                  expiresIn: "365d",
                },
                (err, token) => {
                  if (err) throw err;
-                 res.status(200).json({ token });
+                 res.status(200).json({ msg: "logged in", token, results: result[0] });
                });
             }  catch (error) {
               res.status(400).send(error.message);
