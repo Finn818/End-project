@@ -121,11 +121,13 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
   //Login
 router.post("/login", bodyParser.json(),(req, res) => {
   try {
-    let sql = "SELECT * FROM Users WHERE ?";
+    let sql = "SELECT * FROM Users WHERE email = ?";
     let user = {
-      name: req.body.userName, userEmail, userPassword
+      name: req.body.userName, 
+      email: req.body.userEmail, 
+      password: req.body.userPassword
     };
-    db.query(sql, user, async (err, result) => {
+    db.query(sql, [user.email], async (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
         res.send("Name not found please register");
@@ -133,7 +135,7 @@ router.post("/login", bodyParser.json(),(req, res) => {
         //Decryption
         //Accepts the password stored in the db and the password given by the user(req.body)
         const isMatch = await bcrypt.compare(
-          req.body.userPassword,
+          user.password,
           result[0].userPassword
         );
         //If the password does not match
@@ -141,10 +143,7 @@ router.post("/login", bodyParser.json(),(req, res) => {
           res.send("Password is Incorrect");
         } else {
           const payload = {
-            user: {
-              userName, 
-              userEmail, 
-              userPassword
+            user: user
             },
           };
           //Creating a token and setting an expiry date
