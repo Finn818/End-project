@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../config/dbconn');
-const { hash } = require('bcrypt');
+const { hash, hashSync, compare, compareSync } = require('bcrypt');
 const app = express();
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -82,7 +82,7 @@ router.put("/users/:id", bodyParser.json(), (req, res) => {
     let {userName, userEmail, userPassword} = req.body; 
     console.log( userName, userEmail, userPassword );
       //   If the userPassword is null or empty, set it to "user".
-        if(userPassword.length === 0) {
+        if(userPassword === null || userPassword === undefined) {
             userPassword = "users";
         }
         // Check if a user already exists
@@ -124,7 +124,7 @@ router.post("/login", bodyParser.json(),(req, res) => {
   try {
     let {userName, userEmail, userPassword} = req.body;
     console.log(userEmail);
-    let sql = `SELECT * FROM Users WHERE userEmail = ${userEmail}`;
+    let sql = `SELECT * FROM Users WHERE userEmail = '${userEmail}'`;
     db.query(sql, async (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
@@ -132,7 +132,7 @@ router.post("/login", bodyParser.json(),(req, res) => {
       } else {
         //Decryption
         //Accepts the password stored in the db and the password given by the user(req.body)
-        const isMatch = await bcrypt.compare(
+        const isMatch = await compare(
           userPassword,
           result[0].userPassword
         );
