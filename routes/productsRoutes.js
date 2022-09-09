@@ -71,7 +71,7 @@ router.post("/", bodyParser.json(), (req, res) => {
     } = req.body;
     try {
         db.query(
-        `INSERT INTO FullProductDetails (Img_URL,
+        `INSERT INTO products (Img_URL,
         prodName,
         prodPrice,
         prodSize,
