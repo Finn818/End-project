@@ -31,7 +31,7 @@ router.get('/:id',(req,res) => {
         })
     })
 
-    SHOW FullProductDetails PRODUCT
+    // SHOW FullProductDetails PRODUCT
 router.get('/',(req,res) => {
     let FullProductDetails = `SELECT * FROM FullProductDetails`;
     db.query(FullProductDetails, [req.params.id],(err,results) => {
