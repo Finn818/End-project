@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 const userRouter = require("./routes/userRoutes");
 const productsRouter = require("./routes/productsRoutes");
 const productDetailsRouter = require("./routes/productDetailsRoutes");
-// const fullproductDetailsRouter = require("./routes/fullproductDetailsRoutes");
+const fullproductDetailsRouter = require('./routes/fullproductDetailsRouters')
 
 const app = express();
 app.set("port", process.env.PORT || 6969);
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/products", productsRouter);
 app.use("/productDetails", productDetailsRouter);
-// app.use("/fullproductDetails", fullproductDetailsRouter);
+app.use("/fullproductDetails", fullproductDetailsRouter);
 app.listen(app.get("port"), () => {
     console.log(`Listening for calls on port ${app.get("port")}`);
     console.log("Press Ctrl+C to exit server");
