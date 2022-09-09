@@ -31,19 +31,19 @@ router.get('/:id',(req,res) => {
         })
     })
 
-    router.get('/id',(req,res) => {
-        let FullProductDetails = `SELECT * FROM FullProductDetails`
-        db.query(FullProductDetails,(err,results) => {
-            if(err){
-            res.status(400).json({msg: err});
-            }else{
-            res.json({
-            status: 200,
-            FullProductDetails : results
-                })
-            }
-        })
-    })
+    // router.get('/id',(req,res) => {
+    //     let FullProductDetails = `SELECT * FROM FullProductDetails`
+    //     db.query(FullProductDetails,(err,results) => {
+    //         if(err){
+    //         res.status(400).json({msg: err});
+    //         }else{
+    //         res.json({
+    //         status: 200,
+    //         FullProductDetails : results
+    //             })
+    //         }
+    //     })
+    // })
 
 
 //update
