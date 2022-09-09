@@ -63,8 +63,8 @@ router.post("/", bodyParser.json(), (req, res) => {
     Img_URL, 
     prodName, 
     prodPrice,
-    prodSize,
-    prodColor, 
+    // prodSize,
+    // prodColor, 
     prodArrival_Date,
     Stock_Available, 
     prodDesc
@@ -79,7 +79,7 @@ router.post("/", bodyParser.json(), (req, res) => {
         prodArrival_Date,
         Stock_Available, 
         prodDesc
-        ) VALUES ("${Img_URL}", "${prodName}", "${prodPrice}", "${prodSize}", "${prodColor}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
+        ) VALUES ("${Img_URL}", "${prodName}", "${prodPrice}", "${prodArrival_Date}", "${Stock_Available}", "${prodDesc}")`,
         (err, result) => {
           if (err) throw err;
           res.status(200).send(result);
