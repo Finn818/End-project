@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 const userRouter = require("./routes/userRoutes");
 const productsRouter = require("./routes/productsRoutes");
 const productDetailsRouter = require("./routes/productDetailsRoutes");
-const fullproductDetailsRouter = require("./routes/fullproductDetailsRoutes");
+// const fullproductDetailsRouter = require("./routes/fullproductDetailsRoutes");
 
 const app = express();
 app.set("port", process.env.PORT || 6969);
