@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/products", productsRouter);
 app.use("/productDetails", productDetailsRouter);
-app.use("/fullproductDetails", fullproductDetailsRouter);
+// app.use("/fullproductDetails", fullproductDetailsRouter);
 app.listen(app.get("port"), () => {
     console.log(`Listening for calls on port ${app.get("port")}`);
     console.log("Press Ctrl+C to exit server");
